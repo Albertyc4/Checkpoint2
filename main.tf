@@ -21,7 +21,7 @@ resource "aws_s3_bucket" "s3-alberty" {
 
 # STATIC SITE
 resource "aws_s3_bucket_website_configuration" "website" {
-  bucket = aws_s3_bucket.alberty.id
+  bucket = aws_s3_bucket.s3-alberty.id
 
   index_document {
     suffix = "index.html"
@@ -34,7 +34,7 @@ resource "aws_s3_bucket_website_configuration" "website" {
 
 # ACL S3
 resource "aws_s3_bucket_acl" "aclsalb" {
-  bucket = aws_s3_bucket.alberty.id
+  bucket = aws_s3_bucket.s3-alberty.id
 
   acl = "public-read"
 }
@@ -42,7 +42,7 @@ resource "aws_s3_bucket_acl" "aclsalb" {
 #S3 UPLOAD OBJECT
 resource "aws_s3_bucket_object" "error" {
   key = "error.html"
-  bucket = aws_s3_bucket.alberty.id
+  bucket = aws_s3_bucket.s3-alberty.id
   source = "error.html"
   acl = "public-read"
   content_type = "text/html"
@@ -50,7 +50,7 @@ resource "aws_s3_bucket_object" "error" {
 
 resource "aws_s3_bucket_object" "index" {
   key = "index.html"
-  bucket = aws_s3_bucket.alberty.id
+  bucket = aws_s3_bucket.s3-alberty.id
   source = "index.html"
   acl = "public-read"
   content_type = "text/html"
@@ -58,7 +58,7 @@ resource "aws_s3_bucket_object" "index" {
 
 # POLICY S3
 resource "aws_s3_bucket_policy" "policy-alb" {
-  bucket = aws_s3_bucket.alberty.id
+  bucket = aws_s3_bucket.s3-alberty.id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -75,7 +75,7 @@ resource "aws_s3_bucket_policy" "policy-alb" {
 
 # VERSIONING S3 BUCKET
 resource "aws_s3_bucket_versioning" "version" {
-  bucket = aws_s3_bucket.alberty.id
+  bucket = aws_s3_bucket.s3-alberty.id
   versioning_configuration {
     status = "Enabled"
   }
