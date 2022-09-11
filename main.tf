@@ -7,6 +7,7 @@ terraform {
     }
   }
 }
+
 # REGION
 provider "aws" {
     region = "us-east-1"
@@ -14,13 +15,13 @@ provider "aws" {
 }
 
 # BUCKET S3
-resource "aws_s3_bucket" "s3-bucket" {
-  bucket = "s3-bucket"
+resource "aws_s3_bucket" "s3-alberty" {
+  bucket = "s3-alberty"
 }
 
 # STATIC SITE
-resource "aws_s3_bucket_website_configuration" "Site-bucket" {
-  bucket = aws_s3_bucket.s3-bucket.id
+resource "aws_s3_bucket_website_configuration" "website" {
+  bucket = aws_s3_bucket.alberty.id
 
   index_document {
     suffix = "index.html"
@@ -32,8 +33,8 @@ resource "aws_s3_bucket_website_configuration" "Site-bucket" {
 }
 
 # ACL S3
-resource "aws_s3_bucket_acl" "acl" {
-  bucket = aws_s3_bucket.s3-bucket.id
+resource "aws_s3_bucket_acl" "aclsalb" {
+  bucket = aws_s3_bucket.alberty.id
 
   acl = "public-read"
 }
@@ -41,7 +42,7 @@ resource "aws_s3_bucket_acl" "acl" {
 #S3 UPLOAD OBJECT
 resource "aws_s3_bucket_object" "error" {
   key = "error.html"
-  bucket = aws_s3_bucket.s3-bucket.id
+  bucket = aws_s3_bucket.alberty.id
   source = "error.html"
   acl = "public-read"
   content_type = "text/html"
@@ -49,15 +50,15 @@ resource "aws_s3_bucket_object" "error" {
 
 resource "aws_s3_bucket_object" "index" {
   key = "index.html"
-  bucket = aws_s3_bucket.s3-bucket.id
+  bucket = aws_s3_bucket.alberty.id
   source = "index.html"
   acl = "public-read"
   content_type = "text/html"
 }
 
 # POLICY S3
-resource "aws_s3_bucket_policy" "policy" {
-  bucket = aws_s3_bucket.s3-bucket.id
+resource "aws_s3_bucket_policy" "policy-alb" {
+  bucket = aws_s3_bucket.alberty.id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -73,8 +74,8 @@ resource "aws_s3_bucket_policy" "policy" {
 }
 
 # VERSIONING S3 BUCKET
-resource "aws_s3_bucket_versioning" "versioning" {
-  bucket = aws_s3_bucket.s3-bucket.id
+resource "aws_s3_bucket_versioning" "version" {
+  bucket = aws_s3_bucket.alberty.id
   versioning_configuration {
     status = "Enabled"
   }
