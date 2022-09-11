@@ -50,7 +50,7 @@ resource "aws_s3_bucket_object" "error" {
 
 resource "aws_s3_bucket_object" "index" {
   key = "index.html"
-  bucket = aws_s3_bucket.bucket.id
+  bucket = aws_s3_bucket.s3-bucket.id
   source = "index.html"
   acl = "public-read"
   content_type = "text/html"
