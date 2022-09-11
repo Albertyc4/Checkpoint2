@@ -67,7 +67,7 @@ resource "aws_s3_bucket_policy" "s3-policy-alb" {
         Effect     = "Allow",
         Principal  = "*",
         Action    = "s3:GetObject",
-        Resource = "arn:aws:s3:::s3-policy-alb*",
+        Resource = "arn:aws:s3:::s3-policy-alb/*",
       }
     ]
 	})
