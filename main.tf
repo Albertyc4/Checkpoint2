@@ -56,8 +56,8 @@ resource "aws_s3_bucket_object" "index" {
   content_type = "text/html"
 }
 
-# POLICY S3
-resource "aws_s3_bucket_policy" "policy-alb" {
+#S3 POLICY
+resource "aws_s3_bucket_policy" "s3-policy-alb" {
   bucket = aws_s3_bucket.s3-alberty.id
 
   policy = jsonencode({
@@ -67,7 +67,7 @@ resource "aws_s3_bucket_policy" "policy-alb" {
         Effect     = "Allow",
         Principal  = "*",
         Action    = "s3:GetObject",
-        Resource = "arn:aws:s3:::s3-95128/*",
+        Resource = "arn:aws:s3:::bucket-cp02/*",
       }
     ]
 	})
